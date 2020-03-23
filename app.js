@@ -11,6 +11,7 @@ loadEventListeners()
 function loadEventListeners() {
     // Add task event
     form.addEventListener('submit', addTask)
+    taskList.addEventListener('click', removeTask)
 }
 
 // Add Task
@@ -25,10 +26,19 @@ function addTask(e) {
     li.appendChild(document.createTextNode(taskInput.value))
     const link = document.createElement('a')
     link.className = 'delete-item secondary-content'
-    link.innerHTML= '<i class="fa fa-remove"></i>'
+    link.innerHTML = '<i class="fa fa-remove"></i>'
     li.appendChild(link)
     taskList.appendChild(li)
     taskInput.value = ''
 
     e.preventDefault()
+}
+
+function removeTask(e) {
+    if (e.target.parentElement.classList.contains('delete-item')) {
+        if (confirm('Are you sure?')) {
+            const li = e.target.parentElement.parentElement
+            li.remove()
+        }
+    }
 }
